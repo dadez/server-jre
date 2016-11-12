@@ -1,8 +1,11 @@
 # server-jre
-oracle server-jre
+oracle server-jre based on alpine linux 3.4 official
 
 #build
-docker build -t jre8-alpine .
+docker build -t server-jre .
+
+#build passing java version as argument
+docker build --build-arg JAVA_UPDATE_VERSION=112 --build-arg JAVA_BUILD_NUMBER=15 -t server-jre .
 
 #run
 docker run -it --rm jre8-alpine:u111 java -version
@@ -11,19 +14,7 @@ Java(TM) SE Runtime Environment (build 1.8.0_111-b14)
 Java HotSpot(TM) 64-Bit Server VM (build 25.111-b14, mixed mode)
  
  
-#the default keystore is empty (at least one entry is needed by opensaml framework)
-docker run -it --rm jre8-alpine:u111 keytool -list -keystore /opt/java/server-jre1.8.0_111/jre/lib/security/cacerts -protected
+#the default truststore is empty (at least one entry is needed by opensaml framework)
+## ? How to use $JAVA_HOME instead of full path
+docker run -it --rm server-jre keytool -list -keystore /opt/java/server-jre1.8.0_111/jre/lib/security/cacerts -protected
  
-*****************  WARNING WARNING WARNING  *****************
-* The integrity of the information stored in your keystore  *
-* has NOT been verified!  In order to verify its integrity, *
-* you must provide your keystore password.                  *
-*****************  WARNING WARNING WARNING  *****************
- 
-Keystore type: JKS
-Keystore provider: SUN
- 
-Your keystore contains 1 entry
- 
-swissgovernmentrootcaii, Oct 26, 2016, trustedCertEntry,
-Certificate fingerprint (SHA1): C7:F7:CB:E2:02:36:66:F9:86:02:5D:4A:3E:31:3F:29:EB:0C:5B:38
