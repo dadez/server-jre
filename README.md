@@ -15,11 +15,13 @@ docker build --build-arg JAVA_UPDATE_VERSION=112 \
 --build-arg JAVA_BUILD_NUMBER=15 \
 -t server-jre .
 ```
+* autobuild on docker hub
+dadez/jre:latest
 
 #run
 * check java version
 ```
-docker run -it --rm jre8-alpine:u111 java -version
+docker run -it --rm server-jre java -version
 
 java version "1.8.0_111"
 Java(TM) SE Runtime Environment (build 1.8.0_111-b14)
